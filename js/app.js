@@ -135,17 +135,17 @@ var App = React.createClass({
       case 'claim':
       case 'referral':
         return {
-          '?wallet' : 'Overview',
-          '?send' : 'Send',
-          '?receive' : 'Receive',
-          '?claim' : 'Claim Beta Code',
-          '?referral' : 'Check Referral Credit',
+          'index.html?wallet' : 'Overview',
+          'index.html?send' : 'Send',
+          'index.html?receive' : 'Receive',
+          'index.html?claim' : 'Claim Beta Code',
+          'index.html?referral' : 'Check Referral Credit',
         };
       case 'downloaded':
       case 'published':
         return {
-          '?downloaded': 'Downloaded',
-          '?published': 'Published',
+          'index.html?downloaded': 'Downloaded',
+          'index.html?published': 'Published',
         };
       default:
         return null;
