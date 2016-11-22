@@ -340,6 +340,7 @@ var PublishPage = React.createClass({
       }
     }
   },
+  // Also getting a type warning here too
   render: function() {
     return (
       <main ref="page">
