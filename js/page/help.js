@@ -1,4 +1,8 @@
 //@TODO: Customize advice based on OS
+//@TODO: Customize advice based on OS
+import React from 'react';
+import lbry from '../lbry.js';
+import {Link} from '../component/link.js';
 
 var HelpPage = React.createClass({
   getInitialState: function() {
@@ -85,3 +89,5 @@ var HelpPage = React.createClass({
     );
   }
 });
+
+export default HelpPage;
