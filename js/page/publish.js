@@ -273,7 +273,7 @@ var PublishPage = React.createClass({
 
       var formData = new FormData(fileInput.form);
       formData.append('file', fileInput.files[0]);
-      xhr.open('POST', '/upload', true);
+      xhr.open('POST', 'http://localhost:5279/upload', true);
       xhr.send(formData);
     }
   },
