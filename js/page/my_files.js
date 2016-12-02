@@ -1,8 +1,11 @@
 import React from 'react';
 import lbry from '../lbry.js';
+import lighthouse from '../lighthouse.js';
 import {Link, WatchLink} from '../component/link.js';
 import Modal from '../component/modal.js';
 import {BusyMessage, Thumbnail} from '../component/common.js';
+import {Menu, MenuItem} from '../component/menu.js';
+
 
 var moreMenuStyle = {
   position: 'absolute',
@@ -153,7 +156,7 @@ var MyFilesRow = React.createClass({
                <Link style={moreButtonStyle} ref="moreButton" icon="icon-ellipsis-h" title="More Options" />
                <MyFilesRowMoreMenu toggleButton={this.refs.moreButton} title={this.props.title}
                                    completed={this.props.completed} lbryUri={this.props.lbryUri}
-                                   fileName={this.props.fileName} path={this.props.path}/>
+                                   path={this.props.path}/>
              </div>
             }
           </div>
@@ -241,7 +244,7 @@ var MyFilesPage = React.createClass({
             continue;
           }
 
-          lbry.lighthouse.search(name, (results) => {
+          lighthouse.search(name, (results) => {
             var result = results[0];
 
             var available = result.name == name && result.available;
