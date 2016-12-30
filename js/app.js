@@ -193,7 +193,11 @@ var App = React.createClass({
         return <PublishPage />;
       case 'discover':
       default:
-        return <DiscoverPage query={this.state.pageArgs} />;
+        return <DiscoverPage {...
+          typeof this.state.pageArgs !== 'undefined'
+            ? {query: this.state.pageArgs}
+            : {}
+        } />;
     }
   },
   render: function() {
