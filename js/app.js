@@ -49,9 +49,10 @@ var App = React.createClass({
     };
   },
   componentDidMount: function() {
+    const component = this;
     lbry.getStartNotice(function(notice) {
       if (notice) {
-        this.setState({
+        component.setState({
           modal: 'startNotice',
           startNotice: notice
         });
