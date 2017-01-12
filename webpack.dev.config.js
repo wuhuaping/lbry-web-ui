@@ -10,9 +10,12 @@ module.exports = {
   output: {
     path: path.join(PATHS.dist, 'js'),
     publicPath: '/js/',
-    filename: "bundle.js"
+    filename: "bundle.js",
+    pathinfo: true
   },
-  devtool: 'source-map',
+  debug: true,
+  cache: true,
+  devtool: 'eval',
   module: {
     preLoaders: [
       {
@@ -26,8 +29,12 @@ module.exports = {
       { test: /\.css$/, loader: "style!css" },
       {
 	test: /\.jsx?$/,
-	loader: 'babel'
-      },
+	// Enable caching for improved performance during development
+	// It uses default OS directory by default. If you need
+	// something more custom, pass a path to it.
+	// I.e., babel?cacheDirectory=<path>
+	loader: 'babel?cacheDirectory'
+      }
     ]
   }
 };
