@@ -45,8 +45,7 @@ var Header = React.createClass({
   render: function() {
     return (
       <header id="header" className={ (this.state.isScrolled ? 'header-scrolled' : 'header-unscrolled') + ' ' + (this.props.links ? 'header-with-subnav' : 'header-no-subnav') }>
-
-        <div className="header-top-bar">        
+        <div className="header-top-bar">
           <a href="#"><img class="logoStyle" src="./img/lbry-white-485x160.png"/></a>
 
           <ul className="navigationLinks">
@@ -54,7 +53,7 @@ var Header = React.createClass({
             <a href="#"><li className="navItem">PUBLISH</li></a>
             <a href="#"><li className="navItem">WALLET (25)</li></a>
             <a href="#"><li className="navItem">YASMINE</li></a>
-          </ul> 
+          </ul>
         </div>
         {
           this.props.links ?
@@ -69,7 +68,7 @@ var SubHeader =  React.createClass({
   render: function() {
     var links = [],
         viewingUrl = '?' + this.props.viewingPage;
-    
+
     for (let link of Object.keys(this.props.links)) {
       links.push(
         <a href={link} key={link} className={ viewingUrl == link ? 'sub-header-selected' : 'sub-header-unselected' }>
