@@ -206,7 +206,7 @@ var App = React.createClass({
     return (
       this.state.viewingPage == 'watch' ?
         mainContent :
-        <div id="window" className={ this.state.drawerOpen ? 'drawer-open' : 'drawer-closed' }>
+        <div id="window" className={ 'drawer-closed' }>
           <Drawer onCloseDrawer={this.closeDrawer} viewingPage={this.state.viewingPage} />
           <div id="main-content" className={ headerLinks ? 'with-sub-nav' : 'no-sub-nav' }>
             <Header onOpenDrawer={this.openDrawer} onSearch={this.onSearch} links={headerLinks} viewingPage={this.state.viewingPage} />

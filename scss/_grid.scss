@@ -1,3 +1,4 @@
+
 @import "global";
 
 $gutter_fluid: 4;
@@ -68,6 +69,7 @@ $gutter_fluid: 4;
 
 .row-fluid, .tile-fluid {
   @include clearfix();
+  min-height: 180px;
 }
 
 @media (max-width: $mobile-width-threshold) {

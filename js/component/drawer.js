@@ -15,9 +15,9 @@ var DrawerItem = React.createClass({
   }
 });
 
-var drawerImageStyle = { //@TODO: remove this, img should be properly scaled once size is settled
-  height: '36px'
-};
+// var drawerImageStyle = { //@TODO: remove this, img should be properly scaled once size is settled
+//   height: '36px'
+// };
 
 var Drawer = React.createClass({
   getInitialState: function() {
@@ -36,10 +36,9 @@ var Drawer = React.createClass({
     var isLinux = false && /linux/i.test(navigator.userAgent); // @TODO: find a way to use getVersionInfo() here without messy state management
     return (
       <nav id="drawer">
-        <div id="drawer-handle">
+        {/* <div id="drawer-handle">
           <Link title="Close" onClick={this.props.onCloseDrawer} icon="icon-bars" className="close-drawer-link"/>
-          <a href="/"><img src="./img/lbry-dark-1600x528.png" style={drawerImageStyle}/></a>
-        </div>
+        </div> */}
         <DrawerItem href='/?discover' viewingPage={this.props.viewingPage} label="Discover" icon="icon-search"  />
         <DrawerItem href='/?publish' viewingPage={this.props.viewingPage} label="Publish" icon="icon-upload" />
         <DrawerItem href='/?downloaded' subPages={['published']} viewingPage={this.props.viewingPage}  label="My Files" icon='icon-cloud-download' />

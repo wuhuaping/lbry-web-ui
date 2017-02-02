@@ -11,6 +11,8 @@ body
   line-height: 1.3333;
 }
 
+// drawer begins
+
 $drawer-width: 240px;
 
 #drawer
@@ -19,7 +21,7 @@ $drawer-width: 240px;
   position: fixed;
   min-height: 100vh;
   left: 0;
-  top: 0;
+  top: $header-height;
   background: $color-bg;
   z-index: 3;
   .drawer-item
@@ -71,6 +73,9 @@ $drawer-width: 240px;
   #header { padding-left: $drawer-width + $spacing-vertical / 2; }
 }
 
+// drawer ends
+
+// header begins
 #header
 {
   background: $color-primary;
@@ -92,7 +97,23 @@ $drawer-width: 240px;
   {
     box-shadow: $default-box-shadow;
   }
+
+  .navigationLinks
+  {
+    list-style-type: none;
+    display: inline-block;
+    float: right;
+
+  }
+
+  .navItem {
+    padding: 10px;
+    display: inline-block;
+  }
+
 }
+
+
 .header-top-bar
 {
   padding: $spacing-vertical / 2;
@@ -107,7 +128,18 @@ $drawer-width: 240px;
     width: 400px;
     @include placeholder-color(#e8e8e8);
   }
+
+
+
 }
+
+.logoStyle {
+  height: 36px !important;
+}
+
+
+// header ends
+
 
 nav.sub-header
 {
@@ -206,20 +238,29 @@ $header-icon-size: 1.5em;
   box-shadow: $default-box-shadow;
   border-radius: 2px;
 }
+
 .card-compact {
   padding: 22px;
+
 }
-.card-obscured
-{
+
+.card-obscured {
   position: relative;
 }
+
 .card-obscured .card-content {
   -webkit-filter: blur($blur-intensity);
   -moz-filter: blur($blur-intensity);
   -o-filter: blur($blur-intensity);
   -ms-filter: blur($blur-intensity);
   filter: blur($blur-intensity);
+
 }
+
+.card-compact .card-content {
+  min-height: 180px;
+}
+
 .card-overlay {
   position: absolute;
   left: 0px;
@@ -247,3 +288,9 @@ $header-icon-size: 1.5em;
   width: 100%;
   height: 100%;
 }
+
+.row-fluid.card-content {
+  min-height: 180px;
+}
+
+

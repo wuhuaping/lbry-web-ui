@@ -32,29 +32,29 @@ var Header = React.createClass({
     });
   },
   onQueryChange: function(event) {
-
     if (this.userTypingTimer)
     {
       clearTimeout(this.userTypingTimer);
     }
-
     //@TODO: Switch to React.js timing
     var searchTerm = event.target.value;
     this.userTypingTimer = setTimeout(() => {
       this.props.onSearch(searchTerm);
     }, 800); // 800ms delay, tweak for faster/slower
-
   },
   render: function() {
     return (
       <header id="header" className={ (this.state.isScrolled ? 'header-scrolled' : 'header-unscrolled') + ' ' + (this.props.links ? 'header-with-subnav' : 'header-no-subnav') }>
-        <div className="header-top-bar">
-          <Link onClick={this.props.onOpenDrawer} icon="icon-bars" className="open-drawer-link" />
-          <h1>{ this.state.title }</h1>
-          <div className="header-search">
-            <input type="search" onChange={this.onQueryChange}
-                 placeholder="Find movies, music, games, and more"/>
-          </div>
+
+        <div className="header-top-bar">        
+          <a href="#"><img class="logoStyle" src="./img/lbry-white-485x160.png"/></a>
+
+          <ul className="navigationLinks">
+            <a href="#"><li className="navItem">MY COLLECTION</li></a>
+            <a href="#"><li className="navItem">PUBLISH</li></a>
+            <a href="#"><li className="navItem">WALLET (25)</li></a>
+            <a href="#"><li className="navItem">YASMINE</li></a>
+          </ul> 
         </div>
         {
           this.props.links ?
@@ -65,7 +65,6 @@ var Header = React.createClass({
     );
   }
 });
-
 var SubHeader =  React.createClass({
   render: function() {
     var links = [],

@@ -57,11 +57,11 @@ var SearchResults = React.createClass({
 
 var
   searchRowStyle = {
-    height: (24 * 7) + 'px',
+    // height: (24 * 7) + 'px',
     overflowY: 'hidden'
   },
   searchRowCompactStyle = {
-    height: '180px',
+    // height: '180px',
   },
   searchRowImgStyle = {
     maxWidth: '100%',
