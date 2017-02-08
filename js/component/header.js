@@ -46,8 +46,7 @@ var Header = React.createClass({
     return (
       <header id="header" className={ (this.state.isScrolled ? 'header-scrolled' : 'header-unscrolled') + ' ' + (this.props.links ? 'header-with-subnav' : 'header-no-subnav') }>
         <div className="header-top-bar">
-          <a href="#"><img class="logoStyle" src="./img/lbry-white-485x160.png"/></a>
-
+          <a href="#"><img className="logoStyle" src="./img/lbry-white-485x160.png"/></a>
           <ul className="navigationLinks">
             <a href="#"><li className="navItem">MY COLLECTION</li></a>
             <a href="#"><li className="navItem">PUBLISH</li></a>

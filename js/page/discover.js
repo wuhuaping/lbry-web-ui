@@ -58,6 +58,180 @@ var SearchResults = React.createClass({
   }
 });
 
+var
+  searchRowStyle = {
+    // height: (24 * 7) + 'px',
+    overflowY: 'hidden'
+  },
+  searchRowCompactStyle = {
+    // height: '180px',
+  },
+  searchRowImgStyle = {
+    maxWidth: '100%',
+    maxHeight: (24 * 7) + 'px',
+    display: 'block',
+    marginLeft: 'auto',
+    marginRight: 'auto'
+  },
+  searchRowTitleStyle = {
+    fontWeight: 'bold'
+  },
+  searchRowTitleCompactStyle = {
+    fontSize: '1.25em',
+    lineHeight: '1.15',
+  },
+  searchRowCostStyle = {
+    float: 'right',
+  },
+  searchRowDescriptionStyle = {
+    color : '#444',
+    marginTop: '12px',
+    fontSize: '0.9em'
+  };
+
+
+var SearchResultRow = React.createClass({
+  getInitialState: function() {
+    return {
+      downloading: false,
+      isHovered: false,
+      cost: null,
+      costIncludesData: null,
+    }
+  },
+  handleMouseOver: function() {
+    this.setState({
+      isHovered: true,
+    });
+  },
+  handleMouseOut: function() {
+    this.setState({
+      isHovered: false,
+    });
+  },
+  componentWillMount: function() {
+    if ('cost' in this.props) {
+      this.setState({
+        cost: this.props.cost,
+        costIncludesData: this.props.costIncludesData,
+      });
+    } else {
+      lbry.getCostInfoForName(this.props.name, ({cost, includesData}) => {
+        this.setState({
+          cost: cost,
+          costIncludesData: includesData,
+        });
+      });
+    }
+  },
+  render: function() {
+    var obscureNsfw = !lbry.getClientSetting('showNsfw') && this.props.nsfw;
+    if (!this.props.compact) {
+      var style = searchRowStyle;
+      var titleStyle = searchRowTitleStyle;
+    } else {
+      var style = Object.assign({}, searchRowStyle, searchRowCompactStyle);
+      var titleStyle = Object.assign({}, searchRowTitleStyle, searchRowTitleCompactStyle);
+    }
+
+    return (
+      <section className={ 'card ' + (obscureNsfw ? 'card-obscured ' : '') + (this.props.compact ? 'card-compact' : '')} onMouseEnter={this.handleMouseOver} onMouseLeave={this.handleMouseOut}>
+        <div className="row-fluid card-content" style={style}>
+          <div className="span3">
+            <a href={'/?show=' + this.props.name}><Thumbnail src={this.props.imgUrl} alt={'Photo for ' + (this.props.title || this.props.name)} style={searchRowImgStyle} /></a>
+          </div>
+          <div className="span9">
+            {this.state.cost !== null
+              ? <span style={searchRowCostStyle}>
+                  <CreditAmount amount={this.state.cost} isEstimate={!this.state.costIncludesData}/>
+                </span>
+              : null}
+            <div className="meta"><a href={'/?show=' + this.props.name}>lbry://{this.props.name}</a></div>
+            <h3 style={titleStyle}>
+              <a href={'/?show=' + this.props.name}>
+                <TruncatedText lines={3}>
+                  {this.props.title}
+                </TruncatedText>
+              </a>
+            </h3>
+            <div>
+              {this.props.mediaType == 'video' ? <WatchLink streamName={this.props.name} button="primary" /> : null}
+              <DownloadLink streamName={this.props.name} button="text" />
+            </div>
+            <p style={searchRowDescriptionStyle}>
+              <TruncatedText lines={3}>
+                {this.props.description}
+              </TruncatedText>
+            </p>
+          </div>
+        </div>
+        {
+          !obscureNsfw || !this.state.isHovered ? null :
+            <div className='card-overlay'>
+              <p>
+                This content is Not Safe For Work.
+                To view adult content, please change your <Link href="?settings" label="Settings" />.
+              </p>
+            </div>
+        }
+      </section>
+    );
+  }
+});
+
+var featuredContentItemContainerStyle = {
+  position: 'relative',
+};
+
+var FeaturedContentItem = React.createClass({
+  resolveSearch: false,
+
+  propTypes: {
+    name: React.PropTypes.string,
+  },
+
+  getInitialState: function() {
+    return {
+      metadata: null,
+      title: null,
+      cost: null,
+      overlayShowing: false,
+    };
+  },
+
+  componentWillUnmount: function() {
+    this.resolveSearch = false;
+  },
+
+  componentDidMount: function() {
+    this._isMounted = true;
+
+    lbry.resolveName(this.props.name, (metadata) => {
+      if (!this._isMounted) {
+        return;
+      }
+
+      this.setState({
+        metadata: metadata,
+        title: metadata && metadata.title ? metadata.title : ('lbry://' + this.props.name),
+      });
+    });
+  },
+
+  render: function() {
+    if (this.state.metadata === null) {
+      // Still waiting for metadata, skip render
+      return null;
+    }
+
+    return (<div style={featuredContentItemContainerStyle}>
+      <SearchResultRow name={this.props.name} title={this.state.title} imgUrl={this.state.metadata.thumbnail}
+                 description={this.state.metadata.description} mediaType={lbry.getMediaType(this.state.metadata.content_type)}
+                 nsfw={this.state.metadata.nsfw} compact />
+    </div>);
+  }
+});
+
 var featuredContentLegendStyle = {
   fontSize: '12px',
   color: '#aaa',

@@ -1,5 +1,7 @@
 @import "global";
 
+$height-header: $spacing-vertical * 2.5;
+
 html
 {
   height: 100%;
@@ -21,7 +23,11 @@ $drawer-width: 240px;
   position: fixed;
   min-height: 100vh;
   left: 0;
+<<<<<<< 1fdaeb16e6a3ca42c85bcd2bb6797b4115e7312f
   top: $header-height;
+=======
+  top: $height-header;
+>>>>>>> rebase design changes on top of master
   background: $color-bg;
   z-index: 3;
   .drawer-item
@@ -239,8 +245,12 @@ $header-icon-size: 1.5em;
   border-radius: 2px;
 }
 
+<<<<<<< 1fdaeb16e6a3ca42c85bcd2bb6797b4115e7312f
 .card-obscured
 {
+=======
+.card-obscured {
+>>>>>>> rebase design changes on top of master
   position: relative;
 }
 
