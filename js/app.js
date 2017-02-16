@@ -19,6 +19,27 @@ import Header from './component/header.js';
 import Modal from './component/modal.js';
 import {Link} from './component/link.js';
 
+var SubHeader = React.createClass({
+  render: function() {
+    
+    var links = [],
+        viewingUrl = '?' + this.props.viewingPage;
+
+    for (let link of Object.keys(this.props.links)) {
+      links.push(
+        <a href={link} key={link} className={ viewingUrl == link ? 'sub-header-selected' : 'sub-header-unselected' }>
+          {this.props.links[link]}
+        </a>
+      );
+    }
+    return (
+      <nav className="sub-header">
+        {links}
+      </nav>
+    );
+  }
+});
+
 var App = React.createClass({
   _error_key_labels: {
     connectionString: 'API connection string',
@@ -197,10 +218,20 @@ var App = React.createClass({
       this.state.viewingPage == 'watch' ?
         mainContent :
         <div id="window" className={ 'drawer-closed' }>
-          <Drawer onCloseDrawer={this.closeDrawer} viewingPage={this.state.viewingPage} />
-          <div id="main-content" className={ headerLinks ? 'with-sub-nav' : 'no-sub-nav' }>
-            <Header onOpenDrawer={this.openDrawer} initialQuery={searchQuery} onSearch={this.onSearch} links={headerLinks} viewingPage={this.state.viewingPage} />
-            {mainContent}
+          {/* <Drawer onCloseDrawer={this.closeDrawer} viewingPage={this.state.viewingPage} /> */}
+          <div id="main-content-wrap">
+            <div>
+              {
+                headerLinks ?
+                  <SubHeader links={headerLinks} viewingPage={this.state.viewingPage} /> :
+                  ''
+              }
+            </div> 
+            <div id="main-content" className={ headerLinks ? 'with-sub-nav' : 'no-sub-nav'  }>
+              <Header onOpenDrawer={this.openDrawer} initialQuery={searchQuery} onSearch={this.onSearch} links={headerLinks} viewingPage={this.state.viewingPage} />
+              {mainContent}
+            </div>
+
           </div>
           <Modal isOpen={this.state.modal == 'upgrade'} contentLabel="Update available"
                  type="confirm" confirmButtonLabel="Upgrade" abortButtonLabel="Skip"
