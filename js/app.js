@@ -17,28 +17,9 @@ import {FileListDownloaded, FileListPublished} from './page/file-list.js';
 import Drawer from './component/drawer.js';
 import Header from './component/header.js';
 import Modal from './component/modal.js';
+import SubHeader from './component/subheader.js';
 import {Link} from './component/link.js';
 
-var SubHeader = React.createClass({
-  render: function() {
-    
-    var links = [],
-        viewingUrl = '?' + this.props.viewingPage;
-
-    for (let link of Object.keys(this.props.links)) {
-      links.push(
-        <a href={link} key={link} className={ viewingUrl == link ? 'sub-header-selected' : 'sub-header-unselected' }>
-          {this.props.links[link]}
-        </a>
-      );
-    }
-    return (
-      <nav className="sub-header">
-        {links}
-      </nav>
-    );
-  }
-});
 
 var App = React.createClass({
   _error_key_labels: {
@@ -231,7 +212,6 @@ var App = React.createClass({
               <Header onOpenDrawer={this.openDrawer} initialQuery={searchQuery} onSearch={this.onSearch} links={headerLinks} viewingPage={this.state.viewingPage} />
               {mainContent}
             </div>
-
           </div>
           <Modal isOpen={this.state.modal == 'upgrade'} contentLabel="Update available"
                  type="confirm" confirmButtonLabel="Upgrade" abortButtonLabel="Skip"
@@ -248,7 +228,7 @@ var App = React.createClass({
 
             <div className="error-modal__content">
               <div><img className="error-modal__warning-symbol" src={lbry.imagePath('warning.png')} /></div>
-              <p>We're sorry that LBRY has encountered an error. This has been reported and we will investigate the problem.</p>
+              <p>We&#39;re sorry that LBRY has encountered an error. This has been reported and we will investigate the problem.</p>
             </div>
             {this.state.errorInfo}
             <div className="modal__buttons">
