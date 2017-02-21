@@ -6,6 +6,8 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/).
 The UI versions track the corresponding version in https://github.com/lbryio/lbry
 
 ## [Unreleased]
+
+## [0.9.0rc7] - 2017-02-20
 ### Changed
  * Use local file for publishing
  * Use local file and html5 for video playback
