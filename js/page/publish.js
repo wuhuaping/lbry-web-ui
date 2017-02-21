@@ -17,6 +17,7 @@ var publishNumberStyle = {
 };
 
 var PublishPage = React.createClass({
+  _metaFields: ['title', 'author', 'description', 'thumbnail', 'license', 'license_url', 'language', 'nsfw'],
   _requiredFields: ['name', 'bid', 'meta_title', 'meta_author', 'meta_license', 'meta_description'],
 
   handleSubmit: function(event) {
@@ -52,18 +53,9 @@ var PublishPage = React.createClass({
       return;
     }
 
-    if (this.state.nameIsMine) {
-      // Pre-populate with existing metadata
-      var metadata = Object.assign({}, this.state.myClaimMetadata);
-      if (this.refs.file.getValue() !== '') {
-        delete metadata.sources;
-      }
-    } else {
-      var metadata = {};
-    }
-
-    for (let metaField of ['title', 'author', 'description', 'thumbnail', 'license', 'license_url', 'language', 'nsfw']) {
-      var value = this.state['meta_' + metaField];
+    const metadata = {};
+    for (let metaField of this._metaFields) {
+      const value = this.state['meta_' + metaField];
       if (value !== '') {
         metadata[metaField] = value;
       }
@@ -174,42 +166,53 @@ var PublishPage = React.createClass({
       return;
     }
 
+    const name = rawName.toLowerCase();
+
     this.setState({
       rawName: rawName,
+      name: name,
+      nameResolved: null,
     });
 
-    var name = rawName.toLowerCase();
-
     lbry.resolveName(name, (info) => {
-      if (name != this.state.name.toLowerCase()) {
+      if (name != this.state.name) {
         // A new name has been typed already, so bail
         return;
       }
 
       if (!info) {
         this.setState({
-          name: name,
           nameResolved: false,
           myClaimExists: false,
         });
       } else {
         lbry.getMyClaim(name, (myClaimInfo) => {
           lbry.getClaimInfo(name, (claimInfo) => {
-            if (name != this.state.name.toLowerCase()) {
+            if (name != this.state.name) {
               return;
             }
 
             const topClaimIsMine = (myClaimInfo && myClaimInfo.amount >= claimInfo.amount);
+            const myClaimMetadata = claimInfo ? JSON.parse(myClaimInfo.value) : null;
             const newState = {
-              name: name,
               nameResolved: true,
               topClaimValue: parseFloat(claimInfo.amount),
               myClaimExists: !!myClaimInfo,
               myClaimValue: myClaimInfo ? parseFloat(myClaimInfo.amount) : null,
-              myClaimMetadata: myClaimInfo ? myClaimInfo.value : null,
+              myClaimMetadata: myClaimMetadata,
               topClaimIsMine: topClaimIsMine,
               bid: topClaimIsMine ? myClaimInfo.amount : '',
             };
+
+            // Pre-fill metadata fields
+            if (myClaimInfo) {
+              for (let field of Object.keys(myClaimMetadata)) {
+                const stateField = 'meta_' + field;
+                if (this.state[stateField] === '') {
+                  newState[stateField] = myClaimMetadata[field];
+                }
+              }
+            }
 
             this.setState(newState);
           });
