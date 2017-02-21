@@ -113,7 +113,7 @@ var PublishPage = React.createClass({
       bid: '',
       feeAmount: '',
       feeCurrency: 'USD',
-      nameResolved: false,
+      nameResolved: null,
       topClaimValue: 0.0,
       myClaimValue: 0.0,
       myClaimMetadata: null,
@@ -163,7 +163,7 @@ var PublishPage = React.createClass({
       this.setState({
         rawName: '',
         name: '',
-        nameResolved: false,
+        nameResolved: null,
       });
 
       return;
@@ -289,10 +289,13 @@ var PublishPage = React.createClass({
             <div className="form-row">
               lbry://<FormField type="text" ref="name" value={this.state.rawName} onChange={this.handleNameChange} />
               {
-                (!this.state.name ? '' :
-                  (! this.state.nameResolved ? <em> The name <strong>{this.state.name}</strong> is available.</em>
-                                             : (this.state.myClaimExists ? <em> You already have a claim on the name <strong>{this.state.name}</strong>. You can use this page to update your claim.</em>
-                                                                         : <em> The name <strong>{this.state.name}</strong> is currently claimed for <strong>{this.state.topClaimValue}</strong> {this.state.topClaimValue == 1 ? 'credit' : 'credits'}.</em>)))
+                (this.state.nameResolved === null
+                  ? null
+                  : (!this.state.nameResolved
+                      ? <em> The name <strong>{this.state.name}</strong> is available.</em>
+                      : (this.state.myClaimExists
+                          ? <em> You already have a claim on the name <strong>{this.state.name}</strong>. You can use this page to update your claim.</em>
+                          : <em> The name <strong>{this.state.name}</strong> is currently claimed for <strong>{this.state.topClaimValue}</strong> {this.state.topClaimValue == 1 ? 'credit' : 'credits'}.</em>)))
               }
               <div className="help">What LBRY name would you like to claim for this file?</div>
             </div>
