@@ -36,7 +36,7 @@ var PublishPage = React.createClass({
     var missingFieldFound = false;
     for (let fieldName of checkFields) {
       var field = this.refs[fieldName];
-      if (field.getValue() === '') {
+      if (!this.state[fieldName]) {
         field.warnRequired();
         if (!missingFieldFound) {
           field.focus();
@@ -63,13 +63,13 @@ var PublishPage = React.createClass({
     }
 
     for (let metaField of ['title', 'author', 'description', 'thumbnail', 'license', 'license_url', 'language', 'nsfw']) {
-      var value = this.refs['meta_' + metaField].getValue();
+      var value = this.state['meta_' + metaField];
       if (value !== '') {
         metadata[metaField] = value;
       }
     }
 
-    var licenseUrl = this.refs.meta_license_url.getValue();
+    var licenseUrl = this.state.meta_license_url;
     if (licenseUrl) {
       metadata.license_url = licenseUrl;
     }
@@ -121,12 +121,25 @@ var PublishPage = React.createClass({
       copyrightNotice: '',
       otherLicenseDescription: '',
       otherLicenseUrl: '',
+      meta_title: '',
+      meta_author: '',
+      meta_description: '',
+      meta_thumbnail: '',
+      meta_license: '',
+      meta_license_url: '',
+      meta_language: 'en',
+      meta_nsfw: '',
       uploadProgress: 0.0,
       uploaded: false,
       errorMessage: null,
       submitting: false,
       modal: null,
     };
+  },
+  handleMetaFieldChanged: function(event) {
+    this.setState({
+      ['meta_' + event.target.name]: event.target.type == 'checkbox' ? event.target.checked : event.target.value,
+    });
   },
   handlePublishStarted: function() {
     this.setState({
@@ -168,7 +181,7 @@ var PublishPage = React.createClass({
     var name = rawName.toLowerCase();
 
     lbry.resolveName(name, (info) => {
-      if (name != this.refs.name.getValue().toLowerCase()) {
+      if (name != this.state.name.toLowerCase()) {
         // A new name has been typed already, so bail
         return;
       }
@@ -182,7 +195,7 @@ var PublishPage = React.createClass({
       } else {
         lbry.getMyClaim(name, (myClaimInfo) => {
           lbry.getClaimInfo(name, (claimInfo) => {
-            if (name != this.refs.name.getValue()) {
+            if (name != this.state.name.toLowerCase()) {
               return;
             }
 
@@ -195,14 +208,8 @@ var PublishPage = React.createClass({
               myClaimValue: myClaimInfo ? parseFloat(myClaimInfo.amount) : null,
               myClaimMetadata: myClaimInfo ? myClaimInfo.value : null,
               topClaimIsMine: topClaimIsMine,
+              bid: topClaimIsMine ? myClaimInfo.amount : '',
             };
-
-            if (topClaimIsMine) {
-              newState.bid = myClaimInfo.amount;
-            } else if (this.state.myClaimMetadata) {
-              // Just changed away from a name we have a claim on, so clear pre-fill
-              newState.bid = '';
-            }
 
             this.setState(newState);
           });
@@ -238,8 +245,7 @@ var PublishPage = React.createClass({
     };
 
     if (licenseType == 'copyright') {
-      var author = this.refs.meta_author.getValue();
-      newState.copyrightNotice = 'Copyright ' + (new Date().getFullYear()) + (author ? ' ' + author : '');
+      newState.copyrightNotice = 'Copyright ' + (new Date().getFullYear()) + (this.state.meta_author ? ' ' + this.state.meta_author : '');
     }
 
     this.setState(newState);
@@ -260,7 +266,7 @@ var PublishPage = React.createClass({
     });
   },
   getLicenseUrl: function() {
-    if (!this.refs.meta_license) {
+    if (!this.state.meta_license) {
       return '';
     } else if (this.state.otherLicenseChosen) {
       return this.state.otherLicenseUrl;
@@ -339,13 +345,13 @@ var PublishPage = React.createClass({
             <h4>Your Content</h4>
 
             <div className="form-row">
-              <label htmlFor="title">Title</label><FormField type="text" ref="meta_title" name="title" placeholder="My Show, Episode 1" style={publishFieldStyle} />
+              <label htmlFor="title">Title</label><FormField type="text" ref="meta_title" name="title" value={this.state.meta_title} placeholder="My Show, Episode 1" onChange={this.handleMetaFieldChanged} style={publishFieldStyle} />
             </div>
             <div className="form-row">
-              <label htmlFor="author">Author</label><FormField type="text" ref="meta_author" name="author" placeholder="My Company, Inc." style={publishFieldStyle} />
+              <label htmlFor="author">Author</label><FormField type="text" ref="meta_author" name="author" value={this.state.meta_author} placeholder="My Company, Inc." onChange={this.handleMetaFieldChanged} style={publishFieldStyle} />
             </div>
             <div className="form-row">
-            <label htmlFor="license">License</label><FormField type="select" ref="meta_license" name="license" onChange={this.handeLicenseChange}>
+            <label htmlFor="license">License</label><FormField type="select" ref="meta_license" name="license" value={this.state.meta_license} onChange={this.handeLicenseChange}>
               <option data-url="https://creativecommons.org/licenses/by/4.0/legalcode">Creative Commons Attribution 4.0 International</option>
               <option data-url="https://creativecommons.org/licenses/by-sa/4.0/legalcode">Creative Commons Attribution-ShareAlike 4.0 International</option>
               <option data-url="https://creativecommons.org/licenses/by-nd/4.0/legalcode">Creative Commons Attribution-NoDerivatives 4.0 International</option>
@@ -375,7 +381,7 @@ var PublishPage = React.createClass({
               : null}
 
             <div className="form-row">
-            <label htmlFor="language">Language</label> <FormField type="select" defaultValue="en" ref="meta_language" name="language">
+            <label htmlFor="language">Language</label> <FormField type="select" ref="meta_language" name="language" value={this.state.meta_language} onChange={this.handleMetaFieldChanged}>
                  <option value="en">English</option>
                  <option value="zh">Chinese</option>
                  <option value="fr">French</option>
@@ -386,7 +392,7 @@ var PublishPage = React.createClass({
               </FormField>
             </div>
             <div className="form-row">
-              <label htmlFor="description">Description</label> <FormField type="textarea" ref="meta_description" name="description" placeholder="Description of your content" style={publishFieldStyle} />
+              <label htmlFor="description">Description</label> <FormField type="textarea" ref="meta_description" name="description" placeholder="Description of your content" value={this.state.meta_description} onChange={this.handleMetaFieldChanged} style={publishFieldStyle} />
             </div>
             <div className="form-row">
               <label><FormField type="checkbox" ref="meta_nsfw" name="nsfw" placeholder="Description of your content" /> Not Safe For Work</label>
@@ -398,7 +404,7 @@ var PublishPage = React.createClass({
           <section className="card">
             <h4>Additional Content Information (Optional)</h4>
             <div className="form-row">
-              <label htmlFor="meta_thumbnail">Thumbnail URL</label> <FormField type="text" ref="meta_thumbnail" name="thumbnail" placeholder="http://mycompany.com/images/ep_1.jpg" style={publishFieldStyle} />
+              <label htmlFor="meta_thumbnail">Thumbnail URL</label> <FormField type="text" ref="meta_thumbnail" name="thumbnail" placeholder="http://mycompany.com/images/ep_1.jpg" value={this.state.meta_thumbnail} style={publishFieldStyle} />
             </div>
           </section>
 
