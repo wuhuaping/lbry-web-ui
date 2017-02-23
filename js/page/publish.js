@@ -181,7 +181,7 @@ var PublishPage = React.createClass({
             }
 
             const topClaimIsMine = (myClaimInfo && myClaimInfo.amount >= claimInfo.amount);
-            const myClaimMetadata = claimInfo ? JSON.parse(myClaimInfo.value) : null;
+            const myClaimMetadata = myClaimInfo ? JSON.parse(myClaimInfo.value) : null;
             const newState = {
               nameResolved: true,
               topClaimValue: parseFloat(claimInfo.amount),
