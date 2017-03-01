@@ -16,7 +16,7 @@ export let FileListDownloaded = React.createClass({
   },
   componentDidMount: function() {
     this._isMounted = true;
-    document.title = "Downloaded Files";
+    document.title = "My Collection";
 
     let publishedFilesSdHashes = [];
     lbry.getMyClaims((claimInfos) => {
@@ -49,7 +49,7 @@ export let FileListDownloaded = React.createClass({
     } else if (!this.state.fileInfos.length) {
       return (
         <main className="page">
-          <span>You haven't downloaded anything from LBRY yet. Go <Link href="/" label="search for your first download" />!</span>
+          <span>You haven&#39;t downloaded anything from LBRY yet. Go <Link href="/" label="search for your first download" />!</span>
         </main>
       );
     } else {
@@ -116,7 +116,7 @@ export let FileListPublished = React.createClass({
     else if (!this.state.fileInfos.length) {
       return (
         <main className="page">
-          <span>You haven't published anything to LBRY yet.</span> Try <Link href="/?publish" label="publishing" />!
+          <span>You haven&#39;t published anything to LBRY yet.</span> Try <Link href="/?publish" label="publishing" />!
         </main>
       );
     }

@@ -17,17 +17,8 @@ var NavItem = React.createClass({
 var Header = React.createClass({
   getInitialState: function() {
     return {
-      title: "LBRY",
-      isScrolled: false
+      isScrolled: false,
     };
-  },
-  componentWillMount: function() {
-    new MutationObserver(function(mutations) {
-      this.setState({ title: mutations[0].target.textContent });
-    }.bind(this)).observe(
-      document.querySelector('title'),
-      { subtree: true, characterData: true, childList: true }
-    );
   },
   componentDidMount: function() {
     document.addEventListener('scroll', this.handleScroll);
