@@ -1,6 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import lbry from './lbry.js';
+import lbrynet from './lbrynet.js';
 import lighthouse from './lighthouse.js';
 import App from './app.js';
 import SplashScreen from './component/splash.js';
@@ -8,9 +9,8 @@ import SplashScreen from './component/splash.js';
 
 var init = function() {
   window.lbry = lbry;
-  if (lbry.getClientSetting('debug')) {
-    window.lighthouse = lighthouse;
-  }
+  window.lighthouse = lighthouse;
+  window.lbrynet = lbrynet;
 
   var canvas = document.getElementById('canvas');
   if (window.sessionStorage.getItem('loaded') == 'y') {
