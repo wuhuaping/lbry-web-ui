@@ -226,15 +226,15 @@ var App = React.createClass({
         <div id="window" className={ 'drawer-closed' }>
           {/* <Drawer onCloseDrawer={this.closeDrawer} viewingPage={this.state.viewingPage} /> */}
           <h1>{ this.state.title }</h1>
-          <div id="main-content-wrap">              
-            <div>          
+          <div className="row-fluid" id="main-content-wrap">              
+            <div className="span2">          
               {
                 headerLinks ?
                   <SubHeader links={headerLinks} viewingPage={this.state.viewingPage} /> :
                   ''
               }
             </div> 
-            <div id="main-content" className={ headerLinks ? 'with-sub-nav' : 'no-sub-nav'  }>
+            <div id="main-content" className={ headerLinks ? 'with-sub-nav , span10' : 'no-sub-nav , span12' }>
               <Header onOpenDrawer={this.openDrawer} initialQuery={searchQuery} onSearch={this.onSearch} links={headerLinks} viewingPage={this.state.viewingPage} />
               {mainContent}
             </div>

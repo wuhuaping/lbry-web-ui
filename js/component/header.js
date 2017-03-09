@@ -53,11 +53,21 @@ var Header = React.createClass({
           <div className="header-top-bar">        
             <a href="#"><img className="logoStyle" src="./img/lbry-dark-485x160.png"/></a>
             <nav id="navLinks">
-              <NavItem href="/?discover" viewingPage={this.props.viewingPage} label="discover" />
-              <NavItem href="/?downloaded" subPages={['published']} viewingPage={this.props.viewingPage} label="my collection" />
-              <NavItem href="/?publish" viewingPage={this.props.viewingPage} label="publish" />
-              <NavItem href="/?wallet" subPages={['send', 'receive', 'claim', 'referral']} viewingPage={this.props.viewingPage} label="wallet"/>
-              <NavItem href="/?settings" viewingPage={this.props.viewingPage} label="settings" />
+              <div className="navBlock" id="discoverNav">
+                <NavItem href="/?discover" viewingPage={this.props.viewingPage} label="discover"/>
+              </div>
+              <div className="navBlock" id="collectionNav">
+                <NavItem href="/?downloaded" subPages={['published']} viewingPage={this.props.viewingPage} label="my collection" />
+              </div>              
+              <div className="navBlock" id="publishNav">
+                <NavItem href="/?publish" viewingPage={this.props.viewingPage} label="publish" />
+              </div>
+              <div className="navBlock" id="walletNav">
+                <NavItem href="/?wallet" subPages={['send', 'receive', 'claim', 'referral']} viewingPage={this.props.viewingPage} label="wallet"/>
+              </div>
+              <div className="navBlock" id="settingsNav">
+                <NavItem href="/?settings" viewingPage={this.props.viewingPage} label="settings" />
+              </div>
             </nav>
           </div>
           <div className="header-search row-fluid">

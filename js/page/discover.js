@@ -244,28 +244,28 @@ var FeaturedContent = React.createClass({
                         'rest of the LBRY community. Bid on the names "one," "two," "three," "four" and ' +
                         '"five" to put your content here!');
     return (
-      <div className="row-fluid">
-        <div className="span6">
-          <h3>Featured Content</h3>
-          <FileTile name="coherence" />
-          <FileTile name="itsadisaster" />
-          <FileTile name="mikehill-blockbuster" />
-          <FileTile name="bellflower" />
-          <FileTile name="cinemasix" />
+        <div className="row-fluid">
+          <div className="span6">
+            <h3>Featured Content</h3>
+            <FileTile name="coherence" />
+            <FileTile name="itsadisaster" />
+            <FileTile name="mikehill-blockbuster" />
+            <FileTile name="bellflower" />
+            <FileTile name="cinemasix" />
 
+          </div>
+          <div className="span6">
+            <h3>
+              Community Content
+              <ToolTip label="What's this?" body={toolTipText} className="tooltip--header"/>
+            </h3>
+            <FileTile name="one" />
+            <FileTile name="two" />
+            <FileTile name="three" />
+            <FileTile name="four" />
+            <FileTile name="five" />
+          </div>
         </div>
-        <div className="span6">
-          <h3>
-            Community Content
-            <ToolTip label="What's this?" body={toolTipText} className="tooltip--header"/>
-          </h3>
-          <FileTile name="one" />
-          <FileTile name="two" />
-          <FileTile name="three" />
-          <FileTile name="four" />
-          <FileTile name="five" />
-        </div>
-      </div>
     );
   }
 });

@@ -2,6 +2,8 @@
 @import "global";
 
 $gutter_fluid: 4;
+$h1-height: $spacing-vertical * 2;
+
 
 [class*="span"] {
   min-height: 1px;
@@ -23,6 +25,9 @@ $gutter_fluid: 4;
 
 .row-fluid {
   width: 100%;
+  &#main-content{
+    margin-top: $h1-height + 95px !important;
+  }
   > [class*="span"] {
     float: left;
     width: 100%;

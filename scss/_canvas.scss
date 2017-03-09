@@ -90,6 +90,7 @@ $drawer-width: 240px;
   left: 0;
   width: $full-width;
   box-sizing: border-box;
+  z-index: 2;
   // h1 { font-size: 1.8em; line-height: $height-header - $spacing-vertical; display: inline-block; float: left; }
   &.header-scrolled
   {
@@ -102,28 +103,46 @@ $drawer-width: 240px;
     float: right;
     //padding-right: 10px;
     text-transform: uppercase;
-
   }
-
   .nav-item {
-    padding: 10px;
+    padding: 15px;
     display: inline-block;
     margin-right: 5px;
     margin-left: 5px;
   }
-
   .nav-item-selected {
-    padding: 10px;
+    padding: 15px;
     display: inline-block;
     border-bottom: 3px solid $color-primary;
   }
-
+  .navBlock {
+    display: inline-block;
+    background-repeat: no-repeat;
+    background-position-x: left;
+  }
+  #discoverNav {    
+    background-image: url("/img/discover.svg");    
+  }
+  #collectionNav {
+    background-image: url("/img/collection.svg");
+  }
+  #publishNav {
+    background-image: url("/img/upload.svg");
+  }
+  #walletNav {  
+    background-image: url("/img/wallet.svg");
+  }
+  #settingsNav {
+    background-image: url("/img/settings.svg");
+  }
+  .link-label {
+    padding-left: 35px;
+  }
   .header-top-bar
   {
     // padding: $spacing-vertical / 2;
     background-color: white;
   }    
-
   .header-search
   {
     background-color: white;
@@ -181,7 +200,6 @@ h1 {
   padding: $spacing-vertical / 1.5;
   // background-color: yellow;
   margin-top: $h1-height + 95px;
-  width: $full-width;
   height: 100%;
 }
 
@@ -189,10 +207,8 @@ nav.sub-header
 {
   position: fixed;
   display: inline-block;
-  // background-color: blue;
   text-transform: uppercase;
   color: #343434;
-  width: 15%;
   margin-top: $h1-height + $spacing-vertical / 1.5;
   > a
   {
@@ -224,15 +240,15 @@ nav.sub-header
 {
   // background-color: orange;
   display: inline-block;
-  float: right;
   min-height: calc(100vh - 120px); //should be -$height-header, but I'm dumb I guess? It wouldn't work
-  width: 85%;
+  margin-top: $h1-height + $spacing-vertical / 1.5;
+  // width: 85%;
   main.page
   {
     // padding: $spacing-vertical * 3;
-    // background-color: green;  
-    margin-top: $h1-height + $spacing-vertical / 1.5;
-
+    // background-color: green;
+    padding: $spacing-vertical / 1.5;
+    // margin-top: $h1-height + $spacing-vertical / 1.5;
   }
   h2
   {
@@ -330,6 +346,15 @@ $header-icon-size: 1.5em;
 .row-fluid.card-content {
   min-height: 180px;
 }
+
+
+.navIcon{
+  height: 36px;
+  z-index: 0;
+}
+
+
+
 
 
 

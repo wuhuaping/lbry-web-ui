@@ -267,7 +267,7 @@ var WalletPage = React.createClass({
   },
   render: function() {
     return (
-      <main className="page">
+      <main>
         <section className="card">
           <h3>Balance</h3>
           { this.state.balance === null ? <BusyMessage message="Checking balance" /> : ''}
