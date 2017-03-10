@@ -1,3 +1,5 @@
+# THIS REPO IS NOW BEING DIRECTLY MANAGED BY THE [lbry-app](https://github.com/lbryio/lbry-app) REPO. THIS REPO MAY DISAPPEAR AT ANY TIME.
+
 # LBRY Web User Interface
 
 This is the web-based frontend for the LBRY network. It is automatically installed when a user installs [LBRY](https://github.com/lbryio/lbry).
