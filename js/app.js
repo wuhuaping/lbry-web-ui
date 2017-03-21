@@ -17,7 +17,9 @@ import {FileListDownloaded, FileListPublished} from './page/file-list.js';
 import Drawer from './component/drawer.js';
 import Header from './component/header.js';
 import Modal from './component/modal.js';
+import Search from './component/search.js';
 import {Link} from './component/link.js';
+
 
 var SubHeader = React.createClass({
   render: function() {
@@ -224,7 +226,8 @@ var App = React.createClass({
       this.state.viewingPage == 'watch' ?
         mainContent :
         <div id="window" className={ 'drawer-closed' }>
-          {/* <Drawer onCloseDrawer={this.closeDrawer} viewingPage={this.state.viewingPage} /> */}
+          <Header links={headerLinks} viewingPage={this.state.viewingPage} />
+          <Search initialQuery={searchQuery} onSearch={this.onSearch} />
           <h1>{ this.state.title }</h1>
           <div className="row-fluid" id="main-content-wrap">              
             <div className="span2">          
@@ -233,10 +236,9 @@ var App = React.createClass({
                   <SubHeader links={headerLinks} viewingPage={this.state.viewingPage} /> :
                   ''
               }
-            </div> 
+            </div>              
             <div id="main-content" className={ headerLinks ? 'with-sub-nav , span10' : 'no-sub-nav , span12' }>
-              <Header onOpenDrawer={this.openDrawer} initialQuery={searchQuery} onSearch={this.onSearch} links={headerLinks} viewingPage={this.state.viewingPage} />
-              {mainContent}
+                {mainContent}
             </div>
           </div>
           <Modal isOpen={this.state.modal == 'upgrade'} contentLabel="Update available"

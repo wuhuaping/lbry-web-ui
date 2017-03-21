@@ -79,9 +79,16 @@ $drawer-width: 240px;
 
 // // drawer ends
 
+
 // header begins
+
 #header
 {
+  display: inline-flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-content: center;
+  align-items: center;
   background: $color-bg;
   color: $color-primary;
   padding: $spacing-vertical / 1.5;
@@ -96,88 +103,62 @@ $drawer-width: 240px;
   {
     box-shadow: $default-box-shadow;
   }
-  #navLinks
+  .logoStyle {
+    height: 36px !important;
+  }
+  .navLinks
   {
     list-style-type: none;
-    display: inline-block;
-    float: right;
-    //padding-right: 10px;
+    // display: inline-block;
     text-transform: uppercase;
   }
   .nav-item {
     padding: 15px;
-    display: inline-block;
+    // display: inline-block;
     margin-right: 5px;
     margin-left: 5px;
   }
   .nav-item-selected {
     padding: 15px;
-    display: inline-block;
-    border-bottom: 3px solid $color-primary;
-  }
-  .navBlock {
-    display: inline-block;
-    background-repeat: no-repeat;
-    background-position-x: left;
-  }
-  #discoverNav {    
-    background-image: url("/img/discover.svg");    
-  }
-  #collectionNav {
-    background-image: url("/img/collection.svg");
-  }
-  #publishNav {
-    background-image: url("/img/upload.svg");
-  }
-  #walletNav {  
-    background-image: url("/img/wallet.svg");
-  }
-  #settingsNav {
-    background-image: url("/img/settings.svg");
+    // display: inline-block;
   }
   .link-label {
-    padding-left: 35px;
-  }
-  .header-top-bar
-  {
-    // padding: $spacing-vertical / 2;
+    margin-left: 5px;
+  }  
+
+}
+
+.search {
+    display: inline-flex;
+    justify-content: space-between;
+    flex-direction: row;
+    align-content: center;
+    align-items: stretch;
     background-color: white;
-  }    
-  .header-search
-  {
-    background-color: white;
-    position: relative;
-    display: inline-block;
-    min-height: 0px !important;
-    margin-top: 15px;
-    //maybe change this later, I can't remember what the best way is right now
-    .magGlass {
-      display:inline-block;
-      position: fixed;     
-      height: 30px !important;
-    } 
+    position: fixed;
+    top: 68px;
+    width: $full-width;
+    z-index: 2;
+    .searchTitle {
+      background-color: $color-primary;
+      border: none;
+      text-decoration: none;
+      font-size: 1.3em;
+      color: white;
+      flex-basis: 10%;
+      padding: $spacing-vertical / 1.5;
+    }  
     input[type="search"] {
       background-color: white;
       color: #343434;
       @include placeholder-color(#e8e8e8);
       border: none;
-      font-size: 1em;
-      display: inline-block;
+      font-size: 1.3em;
+      flex-basis: 90%;
+      padding: $spacing-vertical / 1.5;
+
     }
-    .searchBtn {
-      background-color: white;
-      display: inline-block;
-      border: none;
-      text-align: right;
-      text-decoration: none;
-      font-size: 1em;
-      height: 100%;
-      color: #343434;
-    }
-  }
-  .logoStyle {
-    height: 36px !important;
-  }
+
 }
 
 // header ends
