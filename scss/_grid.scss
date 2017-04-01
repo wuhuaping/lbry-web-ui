@@ -24,7 +24,7 @@ $h1-height: $spacing-vertical * 2;
 .span1 { width: 8.333%; }
 
 .row-fluid {
-  width: 100%;
+  // width: 100%;
   &#main-content{
     margin-top: $h1-height + 95px !important;
   }

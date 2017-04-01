@@ -97,6 +97,7 @@ $drawer-width: 240px;
   left: 0;
   width: $full-width;
   box-sizing: border-box;
+  box-shadow: 0px 3px 20px #888888 !important;
   z-index: 2;
   // h1 { font-size: 1.8em; line-height: $height-header - $spacing-vertical; display: inline-block; float: left; }
   &.header-scrolled
@@ -120,6 +121,8 @@ $drawer-width: 240px;
   }
   .nav-item-selected {
     padding: 15px;
+    background-color: $color-primary;
+    color: white;
     // display: inline-block;
   }
   .link-label {
@@ -138,7 +141,7 @@ $drawer-width: 240px;
     position: fixed;
     top: 68px;
     width: $full-width;
-    z-index: 2;
+    z-index: 1;
     .searchTitle {
       background-color: $color-primary;
       border: none;
@@ -171,7 +174,6 @@ h1 {
     color: #343434;
     font-size: 2em;
     width: $full-width;
-    // background-color: purple;
     padding: $spacing-vertical / 1.5;
     height: $h1-height;
 }
@@ -327,7 +329,6 @@ $header-icon-size: 1.5em;
 .row-fluid.card-content {
   min-height: 180px;
 }
-
 
 .navIcon{
   height: 36px;
